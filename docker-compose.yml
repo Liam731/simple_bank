@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: root
+      TZ: Asia/Taipei
+    ports:
+      - "5432:5432"
+
+  api:
+    image: liam731/simplebank:latest
+    environment:
+      DB_HOST: postgres
+      DB_USER: root
+      DB_PASSWORD: secret
+      DB_NAME: root
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
